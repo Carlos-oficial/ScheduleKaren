@@ -1,0 +1,2 @@
+# ScheduleKaren
+Scheduling discord bot
