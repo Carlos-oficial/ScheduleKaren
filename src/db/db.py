@@ -17,6 +17,19 @@ def init_db(db):
     with open("schema.sql",'r') as f:
         db.executescript(f.read())
 
+def post_event(name,time,remind=None,db=None):
+    if not db:
+        db = create_connection("bot.db")
+        init_db(db)
+    db.execute("INSERT INTO event VALUES(?,?,?,?)",(None,name,time,remind))
+
+def get_queue(db=None):
+    if not db:
+        db = create_connection("bot.db")
+        init_db(db)
+    row = conn.execute("SELECT * FROM event ORDER BY time").fetchall()
+    return row
+
 def test_db():
     conn = create_connection("bot.db")
     init_db(conn)
